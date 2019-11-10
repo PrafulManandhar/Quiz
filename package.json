@@ -24,7 +24,12 @@
   },
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "client-install": "cd client && npm install",
+    "start": "env-cmd -f ./env/prod.env node server.js",
+    "server": "env-cmd -f ./env/dev.env nodemon server.js | pino-colada",
+    "client": "npm start --prefix client",
+    "dev": "concurrently \"npm run server \" \"npm run client\" ",
+    "test": "env-cmd -f ./env/test.env jest --watch --runInBand"
   },
   "author": "",
   "license": "ISC"
