@@ -1,11 +1,14 @@
 {
   "name": "quiz",
   "version": "1.0.0",
+  "description": "",
+
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "express-pino-logger": "^4.0.0",
+    "http-proxy-middleware": "^0.20.0",
     "jsonwebtoken": "^8.5.1",
     "moment": "^2.24.0",
     "mysql2": "^1.6.5",
@@ -19,7 +22,6 @@
   "devDependencies": {
     "concurrently": "^4.1.0",
     "env-cmd": "^10.0.1",
-    "jest": "24.7.1",
     "nodemon": "^1.19.1"
   },
   "main": "index.js",

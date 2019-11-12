@@ -628,6 +628,7 @@ router.post("/login", async (req, res) => {
     return res.status(400).json({ errors });
   }
   let { email, password, ip } = req.body;
+  console.log(email)
 
   try {
     let response = await login(email, password, ip);
