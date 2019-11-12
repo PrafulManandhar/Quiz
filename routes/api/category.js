@@ -30,7 +30,7 @@ getName = async email => {
     });
 };
 
-addCategory = async ({ category, addedDate, fullName }) => {
+addCategory = async ({ category, addedDate, email }) => {
   let slug = category
     .toLowerCase()
     .split(" ")
@@ -39,7 +39,7 @@ addCategory = async ({ category, addedDate, fullName }) => {
   let statement =
     "INSERT INTO category (c_name,slug,added_by,added_date) VALUES (?,?,?,?);";
   return pool
-    .execute(statement, [category, slug, fullName, addedDate])
+    .execute(statement, [category, slug, email, addedDate])
     .then(results => {
       if (results[0].affectedRows > 0) {
         return {
@@ -52,7 +52,7 @@ addCategory = async ({ category, addedDate, fullName }) => {
     });
 };
 
-updateCategory = async ({ category, updatedDate, fullName, slug }) => {
+updateCategory = async ({ category, updatedDate, email, slug }) => {
   let newSlug = category
     .toLowerCase()
     .split(" ")
@@ -60,7 +60,7 @@ updateCategory = async ({ category, updatedDate, fullName, slug }) => {
   let statement =
     "UPDATE category SET c_name=?,slug=?,updated_date=?,updated_by=? WHERE slug=?";
   return await pool
-    .execute(statement, [category, newSlug, updatedDate, fullName, slug])
+    .execute(statement, [category, newSlug, updatedDate, email, slug])
     .then(results => {
       if (results[0].affectedRows > 0) {
         return { isUpdated: true };
@@ -184,7 +184,7 @@ router.post(
       let { categoryAdded, err } = await addCategory({
         category,
         addedDate,
-        fullName
+        email
       });
       if (categoryAdded) {
         res.json({ type: "success", message: Success.ADD_CATEGORY_SUCCESSFUL });
@@ -228,14 +228,14 @@ router.put(
 
       let { email } = req.user;
       let { category, ip } = req.body;
-      let { fullName } = await getName(email);
+      // let { fullName } = await getName(email);
       let updatedDate = new Date();
       updatedDate = moment(updatedDate).format("YYYY-MM-DD hh:mm:ss");
 
       let { isUpdated, err } = await updateCategory({
         category,
         updatedDate,
-        fullName,
+        email,
         slug
       });
       if (isUpdated) {

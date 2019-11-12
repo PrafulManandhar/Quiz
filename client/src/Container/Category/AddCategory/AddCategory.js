@@ -22,8 +22,8 @@ class AddCategory extends Component {
     errors: ""
   };
   changeHandler = event => {
-    console.log("target",event.target.name)
-    console.log("value",event.target.value)
+    console.log("target", event.target.name);
+    console.log("value", event.target.value);
     this.setState({ [event.target.name]: event.target.value, errors: "" });
   };
 
@@ -68,7 +68,7 @@ class AddCategory extends Component {
         })
         .catch(err => {
           alert("ERRR");
-        
+
           this.setState({ errors: err.response.data.errors }, () => {
             console.log(this.state.errors);
           });
@@ -112,23 +112,93 @@ class AddCategory extends Component {
                     <Form onSubmit={this.addCategory}>
                       <Form.Group>
                         <Row>
-                          <Col sm="12 mb-2" md="2 mb-0">
-                            <Form.Label>Subject Category</Form.Label>
-                          </Col>
-                          <Col md="6">
-                            <Form.Control
-                              className={classnames({
-                                "is-invalid": errors.category
-                              })}
-                              type="text"
-                              placeholder="Category"
-                              name="category"
-                              onChange={this.changeHandler}
-                            />
+                          <Col sm="12" md="6">
+                            <Row>
+                              <Col sm="12 mb-2" md="3 mb-0">
+                                <Form.Label>Subject Category</Form.Label>
+                              </Col>
+                              <Col md="8" sm="12">
+                                <Form.Control
+                                  className={classnames({
+                                    "is-invalid": errors.category
+                                  })}
+                                  type="text"
+                                  placeholder="Category"
+                                  name="category"
+                                  onChange={this.changeHandler}
+                                />
 
-                            <Form.Control.Feedback type="invalid">
-                              {errors.category}
-                            </Form.Control.Feedback>
+                                <Form.Control.Feedback type="invalid">
+                                  {errors.category}
+                                </Form.Control.Feedback>
+                              </Col>
+                            </Row>
+                          </Col>
+                          <Col sm="12" md="6">
+                            <Row>
+                              <Col sm="12" md="2 mb-0">
+                                <Form.Label>Status</Form.Label>
+                              </Col>
+                              <Col sm="12" md="6 mb-0">
+                                <Form.Control
+                                  className={classnames({
+                                    "is-invalid": errors.status
+                                  })}
+                                  as="select"
+                                  name="Status"
+                                  onChange={this.changeHandler}
+                                >
+                                  <option value="">Specify the status</option>
+                                  <option value="show">show</option>
+                                  <option value="hide">hide</option>
+                                </Form.Control>
+                              </Col>
+                            </Row>
+                          </Col>
+                        </Row>
+                        <Row>
+                          <Col sm="12" md="6">
+                            <Row>
+                              <Col sm="12 mb-2" md="3 mb-0">
+                                <Form.Label>Subject Category</Form.Label>
+                              </Col>
+                              <Col md="8" sm="12">
+                                <Form.Control
+                                  className={classnames({
+                                    "is-invalid": errors.category
+                                  })}
+                                  type="text"
+                                  placeholder="Category"
+                                  name="category"
+                                  onChange={this.changeHandler}
+                                />
+
+                                <Form.Control.Feedback type="invalid">
+                                  {errors.category}
+                                </Form.Control.Feedback>
+                              </Col>
+                            </Row>
+                          </Col>
+                          <Col sm="12" md="6">
+                            <Row>
+                              <Col sm="12" md="2 mb-0">
+                                <Form.Label>Status</Form.Label>
+                              </Col>
+                              <Col sm="12" md="6 mb-0">
+                                <Form.Control
+                                  className={classnames({
+                                    "is-invalid": errors.status
+                                  })}
+                                  as="select"
+                                  name="Status"
+                                  onChange={this.changeHandler}
+                                >
+                                  <option value="">Specify the status</option>
+                                  <option value="show">show</option>
+                                  <option value="hide">hide</option>
+                                </Form.Control>
+                              </Col>
+                            </Row>
                           </Col>
                         </Row>
                       </Form.Group>
