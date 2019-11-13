@@ -19,6 +19,9 @@ class AddCategory extends Component {
     show: false,
     message: "",
     category: "",
+    passmarks:"",
+    status:"",
+    fullmarks:"",
     errors: ""
   };
   changeHandler = event => {
@@ -39,8 +42,12 @@ class AddCategory extends Component {
     e.preventDefault();
     let data = {
       category: this.state.category,
+      passmarks: this.state.passmarks,
+      fullmarks:this.state.fullmarks,
+      status:this.state.status,
       ip: this.state.ip
     };
+    console.log("client side validataion",data)
     const { errors, isValid } = validateCategory(data);
     if (isValid) {
       await axios
@@ -145,13 +152,16 @@ class AddCategory extends Component {
                                     "is-invalid": errors.status
                                   })}
                                   as="select"
-                                  name="Status"
+                                  name="status"
                                   onChange={this.changeHandler}
                                 >
                                   <option value="">Specify the status</option>
                                   <option value="show">show</option>
                                   <option value="hide">hide</option>
                                 </Form.Control>
+                                <Form.Control.Feedback type="invalid">
+                                  {errors.status}
+                                </Form.Control.Feedback>
                               </Col>
                             </Row>
                           </Col>
@@ -160,43 +170,43 @@ class AddCategory extends Component {
                           <Col sm="12" md="6">
                             <Row>
                               <Col sm="12 mb-2" md="3 mb-0">
-                                <Form.Label>Subject Category</Form.Label>
+                                <Form.Label>Full Marks</Form.Label>
                               </Col>
                               <Col md="8" sm="12">
                                 <Form.Control
                                   className={classnames({
-                                    "is-invalid": errors.category
+                                    "is-invalid": errors.fullmarks
                                   })}
-                                  type="text"
-                                  placeholder="Category"
-                                  name="category"
+                                  type="number"
+                                  placeholder="Full Marks                                               "
+                                  name="fullmarks"
                                   onChange={this.changeHandler}
                                 />
 
                                 <Form.Control.Feedback type="invalid">
-                                  {errors.category}
+                                  {errors.fullmarks}
                                 </Form.Control.Feedback>
                               </Col>
                             </Row>
                           </Col>
                           <Col sm="12" md="6">
                             <Row>
-                              <Col sm="12" md="2 mb-0">
-                                <Form.Label>Status</Form.Label>
+                              <Col sm="12" md="3 mb-0">
+                                <Form.Label>Pass Marks</Form.Label>
                               </Col>
                               <Col sm="12" md="6 mb-0">
                                 <Form.Control
                                   className={classnames({
-                                    "is-invalid": errors.status
+                                    "is-invalid": errors.passmarks
                                   })}
-                                  as="select"
-                                  name="Status"
+                                  type="number"
+                                  placeholder="Pass Marks                                            "
+                                  name="passmarks"
                                   onChange={this.changeHandler}
-                                >
-                                  <option value="">Specify the status</option>
-                                  <option value="show">show</option>
-                                  <option value="hide">hide</option>
-                                </Form.Control>
+                                />
+                                 <Form.Control.Feedback type="invalid">
+                                  {errors.passmarks}
+                                </Form.Control.Feedback>
                               </Col>
                             </Row>
                           </Col>

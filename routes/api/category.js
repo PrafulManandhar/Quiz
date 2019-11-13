@@ -30,16 +30,16 @@ getName = async email => {
     });
 };
 
-addCategory = async ({ category, addedDate, email }) => {
+addCategory = async ({ category, addedDate, email,fullmarks,passmarks,status }) => {
   let slug = category
     .toLowerCase()
     .split(" ")
     .join("-");
 
   let statement =
-    "INSERT INTO category (c_name,slug,added_by,added_date) VALUES (?,?,?,?);";
+    "INSERT INTO category (c_name,slug,added_by,added_date,status,full_mark,pass_mark) VALUES (?,?,?,?,?,?,?);";
   return pool
-    .execute(statement, [category, slug, email, addedDate])
+    .execute(statement, [category, slug, email, addedDate,status, fullmarks ,passmarks ])
     .then(results => {
       if (results[0].affectedRows > 0) {
         return {
@@ -176,15 +176,17 @@ router.post(
     console.log("category.js server side",req.body)
     if (isValid) {
       let { email } = req.user;
-      let { fullName } = await getName(email);
-      let { category, ip } = req.body;
+      let { category, ip, status , fullmarks, passmarks } = req.body;
       let addedDate = new Date();
       addedDate = moment(addedDate).format("YYYY-MM-DD hh:mm:ss");
       category = category.trim();
       let { categoryAdded, err } = await addCategory({
         category,
         addedDate,
-        email
+        email,
+        status,
+        fullmarks,
+        passmarks
       });
       if (categoryAdded) {
         res.json({ type: "success", message: Success.ADD_CATEGORY_SUCCESSFUL });

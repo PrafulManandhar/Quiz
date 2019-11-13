@@ -12,6 +12,19 @@ module.exports = function validateAddCategory(data) {
  if(Validator.isEmpty(data.ip))
  errors.ip="There is something wrong while getting IP";
 
+ if (Validator.isEmpty(data.passmarks))
+ errors.passmarks = "Passmarks is required";
+
+ if (Validator.isEmpty(data.fullmarks)){
+   errors.fullmarks = "Full Marks is required";
+ }
+
+ if (Validator.isEmpty(data.status))
+ errors.status = "Status is required";
+
+ if(!Validator.isNumeric(data.fullmarks)){
+   errors.fullmarks = "Full Marks should be number"
+ }
 
  
   return{
