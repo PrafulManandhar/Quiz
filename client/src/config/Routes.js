@@ -53,5 +53,12 @@ export default {
     NEW_PURCHASE_ORDER: "/purchaseorders/new",
     MANAGE_PURCHASE_ORDER:"/purchaseorders",
     UPDATE_PURCHASE_QUANTITY :"/purchase/receive",
+
+    //quiz
+
+    ADD_QUIZ_QUESTION : "/quiz/new",
+    EDIT_QUIZ_QUESTION  : "/quiz/edit",
+    VIEW_QUIZ_QUESTION : "/quiz",
+    
       
 };

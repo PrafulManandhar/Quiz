@@ -34,6 +34,7 @@ import PageNotFound from "./UI/PageNotFound";
 import CustomSpinner from "./UI/Spinner/CustomSpinner";
 import UserDashboardSpinner from "./UI/Spinner/UserDashboardSpinner";
 import Unauthorized from "./UI/Unauthorized";
+import AddQuizQuestion from "./Container/Quiz/AddQuizQuestion/AddQuizQuestion";
 
 class App extends Component {
   render() {
@@ -55,6 +56,14 @@ class App extends Component {
           exact
           render={() =>
             this.props.login.login ? <AddCategory /> : <CustomSpinner />
+          }
+        />
+
+<Route
+          path={ROUTES.ADD_QUIZ_QUESTION}
+          exact
+          render={() =>
+            this.props.login.login ? <AddQuizQuestion /> : <CustomSpinner />
           }
         />
         <Route

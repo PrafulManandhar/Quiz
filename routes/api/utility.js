@@ -29,6 +29,7 @@ router.post(
   passport.authenticate("jwt", { session: false }),
   async (req, res) => {
     let { slug } = req.body;
+    console.log("slugsss",slug)
     let isAuthorized = await checkPermission(req.user.id, slug);
     if (isAuthorized) {
       return res.json({ authorized: true });

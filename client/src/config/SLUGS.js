@@ -17,5 +17,7 @@ export default {
   NEW_SALES_ORDER: "new-sales-order",
   MANAGE_SALES_ORDER: "manage-sales-order",
   NEW_PURCHASE_ORDER :"new-purchase-order",
-  MANAGE_PURCHASE_ORDER :"manage-purchase-order"
+  MANAGE_PURCHASE_ORDER :"manage-purchase-order",
+  QUIZ:"quiz",
+  ADD_NEW_QUIZ : "add-new-quiz"
 };

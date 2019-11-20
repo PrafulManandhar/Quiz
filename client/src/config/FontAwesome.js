@@ -14,5 +14,6 @@ export default {
   EMAIL_TEMPLATES: "fas fa-envelope",
   SETTINGS: "fas fa-cog",
   SALES_ORDER: "fas fa-clipboard-list",
-  PURCHASE_ORDER: "fas fa-clipboard-list"
+  PURCHASE_ORDER: "fas fa-clipboard-list",
+  QUIZ:"fa-quiz-plus"
 };

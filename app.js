@@ -23,6 +23,8 @@ const shift = require("./routes/api/shift");
 app.use("/api/shift", shift);
 const category = require("./routes/api/category");
 app.use("/api/category", category);
+const quiz = require("./routes/api/quiz");
+app.use("/api/quiz",quiz);
 
 
 const modules = require("./routes/api/modules");

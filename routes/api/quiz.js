@@ -14,13 +14,28 @@ router.get("/", async (req, res) => {
   res.json("Testing the quiz");
 });
 
-addQuizQuestion = async ({ question, timeout, option, correctans }) => {
+
+
+addQuizQuestion = async ({ question, answer, option, category }) => {
+ let id = pool.query("SELECT id FROM category WHERE c_name=?",category).then(results=>{
+    console.log("results",results)
+    if(results.length>0){
+      return (
+         results[0]
+      )
+    }
+  })
+  console.log("id",id)
   const connection = await pool.getConnection();
-  let statement = "INSERT INTO quiz (question , timeout) VALUES (?,?)";
+
+  // let statement1= "SELECT id FROM category WHERE c_name=?";
+  let statement = "INSERT INTO quiz (question,cat_id) VALUES (?,?)";
   try {
     await connection.beginTransaction();
+    // let {cat_id} = await connection.execute(statement1,categories)
+
     let { isRecorded } = await connection
-      .execute(statement, [question, timeout])
+      .execute(statement, [question, getCategoryId])
       .then(result => {
         return { isRecorded: true };
       })
@@ -40,17 +55,30 @@ addQuizQuestion = async ({ question, timeout, option, correctans }) => {
       .catch(err => {
         console.log("error while getting the id");
       });
-    let recordAnswer = "INSERT INTO answer (answer, quiz_id) VALUES (?,?)";
-    for (let ans of option) {
-      let { answer } = ans;
-      let { isAdded } = await connection
-        .execute(recordAnswer, [answer, id])
+    let recordAnswer = "INSERT INTO answer (answer ,option ,quiz_id) VALUES (?,?,?)";
+    for (let ans of answer) {
+      let i = 0;
+      let {anss} = ans;
+      if(option === i){
+        let { isAdded } = await connection
+        .execute(recordAnswer, [anss,"yes", id])
         .then(result => {
           return { isAdded: true };
         })
         .catch(err => {
           return { isAdded: false };
         });
+      }else{
+        let { isAdded } = await connection
+        .execute(recordAnswer, [anss,"no", id])
+        .then(result => {
+          return { isAdded: true };
+        })
+        .catch(err => {
+          return { isAdded: false };
+        });
+      }
+     
         if (!isAdded) {
           throw "Failed to add answer";
         }
@@ -72,7 +100,8 @@ router.post(
   "/",
   passport.authenticate("jwt", { session: false }),
   async (req, res) => {
-    const { question, timeout, option, correctans, ip } = req.body;
+    const { question, ip , answer , option , categories
+  } = req.body;
     const { email } = req.user;
     // let {errors,isValid} = await validateQuizQuestion(req.body);
     let isValid = true;
@@ -82,9 +111,9 @@ router.post(
 
     let { isRecorded } = await addQuizQuestion({
       question,
-      timeout,
-      option,
-      correctans
+      answer,
+      category,
+      option
     });
     if (isRecorded) {
       res.json({ type: "success", message: Errors.ADD_QUIZ_QUESTION });
